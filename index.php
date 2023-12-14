@@ -17,17 +17,18 @@
     include './db.php';
 
     // Retrieve the text from the database
-    $sql = "SELECT `content` FROM `text_content` ORDER BY `id` DESC LIMIT 1"; // Assuming 'id' is your primary key
+    $sql = "SELECT `content` FROM `text_content` ORDER BY `id` DESC"; // Assuming 'id' is your primary key || `DESC` - descending data && `LIMIT 1` - last one of a data table. 
 
     $result = $conn->query($sql);
 
     if ($result && $result->num_rows > 0) {
-        $row = $result->fetch_assoc();
-        $content = $row['content'];
 
         // Display the retrieved content
         echo "<hr/><h3>Content from the database:</h3><br/>";
-        echo $content;
+        while ($row = $result->fetch_assoc()) {
+            $content = $row['content'];
+            echo $content . "<br/>";
+        }
     } else {
         echo "No content found in the database";
     }
